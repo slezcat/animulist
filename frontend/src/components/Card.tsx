@@ -1,32 +1,84 @@
-import React from "react";
-import { AiFillStar } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineStar } from "react-icons/ai";
 
-type Props = {
-  title: string;
-  image: string;
-  synopsis: string;
-  score: string;
-  genres: string[];
-};
+const btnData = ["Completed", "Curently Watching"];
 
-const Card = ({ title, image, synopsis, score }: Props) => {
+const Card = ({ data }: any) => {
+  const { title, year, score, season, images, genres }: any = data;
+
+  const [open, setOpen] = useState(false);
   return (
-    <div className="relative w-[18vw] h-[50vh] flex text-white text-ellipsis group">
-      <img src={image} alt="" className=" absolute h-full w-full" />
+    <>
       <div
-        className="absolute top-[40%] bg-gradient-to-t from-zinc-900 via-zinc-900 z-10 w-[18vw] h-[30vh]  overflow-hidden p-2 pt-6 
-      group-hover:opacity-100 opacity-0 text-ellipsis flex-col flex items-stretch justify-between transition ease-in-out duration-300 delay-150"
+        onMouseLeave={() => setOpen(false)}
+        className="group relative flex h-60 w-40 cursor-pointer text-ellipsis rounded-lg text-white transition delay-150 duration-300 ease-in-out
+      "
       >
-        <h1 className=" font-bold ">{title}</h1>
+        <span
+          onMouseLeave={() => setOpen(false)}
+          className={`absolute top-[105%]
+          left-[5%]  ${open ? "visible" : "invisible"}  opacity-${
+            open ? 100 : 0
+          }  z-50 w-max max-w-full translate-y-[calc(0%_-_10px)] rounded bg-[#333] p-0.5 text-start text-white shadow-lg  shadow-black transition duration-300  ease-in-out `}
+        >
+          {btnData.map((a) => {
+            return (
+              <button
+                className="
+              z-50 w-full bg-slate-700 px-2 py-1 text-start hover:bg-slate-600"
+              >
+                {a}
+              </button>
+            );
+          })}
+        </span>
+        <img
+          src={images?.jpg.large_image_url}
+          alt=""
+          className="absolute h-full w-full rounded-lg transition delay-150 duration-300 ease-in-out group-hover:brightness-50 "
+        />
+        <div className="absolute top-[20%] z-10 flex h-[32vh] w-full flex-col items-stretch justify-between overflow-hidden text-ellipsis rounded-lg bg-gradient-to-t from-[#000a12]  via-[#000a12] p-2 pt-3  opacity-0 transition delay-150 duration-300 ease-in-out group-hover:opacity-100 ">
+          <div>
+            <h1 className="overflow-hidden text-ellipsis text-center text-lg font-bold line-clamp-1">
+              {title}
+            </h1>
+            <h5 className="text-md text-center capitalize">
+              {year ?? "Year not provided"}, {season}
+            </h5>
+          </div>
 
-        <p className=" text-sm font-thin  h-[10vh] line-clamp-3">
-          {synopsis || "No synopsis provided."}
-        </p>
-        <h3 className="inline">
-          {score} <AiFillStar className="inline" />
-        </h3>
+          <div className="flex flex-row flex-wrap justify-center text-sm">
+            {genres?.map((theme: any, i: number) => {
+              return (
+                i < 2 && (
+                  <h1 className="m-1  rounded-full bg-red-500 px-2">
+                    {theme.name}{" "}
+                  </h1>
+                )
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col">
+            <h3 className="relative mb-2 inline text-center text-lg font-semibold">
+              {score}{" "}
+              <AiOutlineStar className="absolute top-[20%] inline pb-1 text-xl text-yellow-400 " />
+            </h3>
+            <button
+              className="rounded bg-slate-700 font-semibold"
+              onClick={() => setOpen(true)}
+            >
+              + Add to list
+            </button>
+          </div>
+        </div>
+        {/* <span
+          className="absolute top-[-4rem]
+          left-[100%] translate-x-[30%] opacity-0 translate-y-[calc(8_*_10px)] border-[10px] border-solid border-transparent border-t-[#333] origin-top group-hover:opacity-100 rotate-90 z-10 transition delay-150 duration-300 ease-in-out"
+        >        
+        </span> */}
       </div>
-    </div>
+    </>
   );
 };
 
