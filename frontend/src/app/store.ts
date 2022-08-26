@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import animeReducer from '../features/animeSlice';
+import animeReducer from '../features/anime/animeSlice';
 
 export const store = configureStore({
   reducer: {
