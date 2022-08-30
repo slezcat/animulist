@@ -1,29 +1,35 @@
-import { useEffect } from "react";
-import { allAnime } from "../../api/animeAPI";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import {  animeDetails } from "../../api/animeAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAnime } from "../../features/animeSlice";
-import CardSkeleton from "../../pages/home/components/AnimeCardSkeleton";
-import AnimeSearch from "../../pages/home/components/AnimeSearch";
-import AnimeShowAll from "../../pages/home/components/AnimeShowAll";
+import Container from "./components/Container";
 
-const Home = () => {
+type Props = {};
+
+const Details = (props: Props) => {
+ 
   const { anime, status } = useAppSelector((store: any) => store.anime);
+
   const dispatch = useAppDispatch();
+  const { animeId } = useParams();
 
   useEffect(() => {
-    dispatch(getAnime(allAnime));
-  }, [dispatch]);
+    dispatch(getAnime(animeDetails(animeId)));
+  }, [animeId, dispatch]);
+
+
   return (
     <>
-      <AnimeSearch />
-      {
+    {
         //show whether the anime is successfully fetched or not
         (() => {
           switch (status) {
             case "loading":
-              return <CardSkeleton />;
+              return <h1>loading</h1>
             case "idle":
-              return <AnimeShowAll data={anime} />;
+              // return <Container data={anime[0]["details"]}/>
+              return console.log(anime)
             case "failed":
               return (
                 <h1 className="mt-12 h-[100vh] w-full text-center text-6xl text-white">
@@ -45,4 +51,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Details;

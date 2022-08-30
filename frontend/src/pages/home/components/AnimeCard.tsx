@@ -36,7 +36,7 @@ const AnimeCard = ({ data }: any) => {
     return (
       <>
         <div 
-        
+        onClick={(e) => showMoreDetails(e,mal_id)}
         className="absolute top-[20%] z-10 flex h-[32vh] w-full flex-col items-stretch justify-between overflow-hidden text-ellipsis rounded-lg bg-gradient-to-t from-[#000a12]  via-[#000a12] p-2 pt-3  opacity-0 transition delay-150 duration-300 ease-in-out group-hover:opacity-100 ">
           <div>
             <h1 className="overflow-hidden text-ellipsis text-center text-lg font-bold line-clamp-1">
@@ -69,7 +69,7 @@ const AnimeCard = ({ data }: any) => {
             </h3>
             <button
               className="rounded bg-slate-700 font-semibold transition duration-150 ease-in-out hover:bg-slate-600"
-              onClick={() => setOpen(true)}
+              onClick={(e)=>handleOpen(e)}
             >
               + Add to list
             </button>
@@ -78,15 +78,20 @@ const AnimeCard = ({ data }: any) => {
       </>
     );
   };
-
-  const showMoreDetails = (id:any)=>{
-    navigate(`/${id}`)
+  const handleOpen = (e:any)=>{
+    e.stopPropagation()
+    setOpen(true)
+   
+  }
+  const showMoreDetails = (e:any,id:any)=>{
+   
+    navigate(`/search/${id}`)
   }
 
   return (
     <>
       <div
-        onClick={() => showMoreDetails(mal_id)}
+        
         onMouseLeave={() => setOpen(false)}
         className="group relative flex h-60 w-40 cursor-pointer text-ellipsis rounded-lg text-white transition delay-150 duration-300 ease-in-out"
       >

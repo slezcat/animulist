@@ -1,0 +1,119 @@
+import React, { useEffect, useState } from "react";
+import AnimeCharacters from "./AnimeCharacters";
+
+type Props = {};
+
+const Container = ({ data }: any) => {
+  const [filData, setFilData] = useState<any>();
+
+  const {
+    title,
+    images,
+    synopsis,
+    score,
+    type,
+    episodes,
+    status,
+    aired,
+    duration,
+    popularity,
+    trailer,
+  } = data;
+  
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  useEffect(() => {
+    const filteredData = {
+      type,
+      episodes,
+      duration,
+      status,
+      aired,
+      score,
+      popularity,
+    };
+    setFilData(filteredData);
+  }, [data]);
+
+  return (
+    <div className="grid grid-flow-dense grid-cols-4 gap-4 text-white md:grid-cols-[200px_auto]">
+      <div className="col-span-4 flex flex-col items-center  justify-center sm:flex-row sm:justify-start md:col-span-1 md:flex-col">
+        <img
+          className="row-span-3 w-[200px] "
+          src={images?.jpg.image_url}
+          alt=""
+        />
+        <div className="mt-4 flex h-24 w-full flex-col items-center justify-between px-4">
+          <button className="w-full bg-red-500">Add</button>
+          <button className="w-full bg-red-500">Add</button>
+          <button className="w-full bg-red-500">Add</button>
+        </div>
+      </div>
+      <div className="col-span-4 md:col-span-1">
+        <h1 className="text-3xl">{title}</h1>
+        <p className="whitespace-normal text-sm line-clamp-[12]">
+          <span className="block text-lg font-semibold xl:hidden">
+            Synopsis
+          </span>
+          {synopsis}
+        </p>
+      </div>
+      <div className="w-full bg-[#202020] md:col-span-1 col-span-4">
+        {filData !== undefined &&
+          Object.keys(filData).map((key: any) => {
+            if (key === "aired") {
+              const { from, to } = filData[key].prop;
+              return (
+                <>
+                  <div className="p-2">
+                    <h1 className="font-semibold capitalize">start date</h1>
+                    <p className="font-light text-gray-300">
+                      {monthNames[from.month]},{from.day},{from.year}
+                    </p>
+                  </div>
+                  <div className="p-2">
+                    <h1 className="font-semibold capitalize">end date</h1>
+                    <p className="font-light text-gray-300">
+                      {to.day},{monthNames[to.month]},{to.year}
+                    </p>
+                  </div>
+                </>
+              );
+            }
+            return (
+              <div className="p-2">
+                <h1 className="font-semibold capitalize">{key}</h1>
+                <p className="font-light text-gray-300">{filData[key]}</p>
+              </div>
+            );
+          })}
+         
+      </div>
+      <div className="bg-white md:col-span-1 col-span-4">
+        <iframe
+          className="w-full md:h-1/2"
+          title="youtube"
+          src={trailer.embed_url}
+        ></iframe>
+        
+      </div>
+      {/* <AnimeCharacters data={data[1]["characters"]}/> */}
+    </div>
+  );
+};
+
+export default Container;

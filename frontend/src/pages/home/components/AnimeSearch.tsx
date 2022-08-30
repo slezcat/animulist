@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { allAnime, filteredAnime } from "../../../api/animeAPI";
 import { useAppDispatch } from "../../../app/hooks";
-import { getAnime,getAllAnime } from "../../../features/anime/animeSlice";
+import { getAnime } from "../../../features/animeSlice";
 
 type Props = {};
 
@@ -16,9 +17,9 @@ const AnimeSearch = (props: Props) => {
   const handleOnKeyUp = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === "Enter") {
       if (params === "") {
-        dispatch(getAllAnime());
+        dispatch(getAnime(allAnime))
       } else {
-        dispatch(getAnime(params));
+        dispatch(getAnime(filteredAnime("?q="+params)));
       }
       setParams("")
     }
