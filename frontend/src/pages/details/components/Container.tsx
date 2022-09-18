@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AnimeCharacters from "./AnimeCharacters";
+import AnimeCharacters from "./Characters";
 
 type Props = {};
 
@@ -18,8 +18,7 @@ const Container = ({ data }: any) => {
     duration,
     popularity,
     trailer,
-  } = data;
-  
+  } = data[0]["details"];
 
   const monthNames = [
     "January",
@@ -57,10 +56,10 @@ const Container = ({ data }: any) => {
           src={images?.jpg.image_url}
           alt=""
         />
-        <div className="mt-4 flex h-24 w-full flex-col items-center justify-between px-4">
-          <button className="w-full bg-red-500">Add</button>
-          <button className="w-full bg-red-500">Add</button>
-          <button className="w-full bg-red-500">Add</button>
+        <div className="mt-4 flex  w-full flex-col items-center justify-between  gap-5 font-semibold md:px-0 px-4">
+          <button className="w-full bg-red-500 p-1">Add</button>
+          <button className="w-full bg-red-500 p-1">Add</button>
+          <button className="w-full bg-red-500 p-1">Add</button>
         </div>
       </div>
       <div className="col-span-4 md:col-span-1">
@@ -72,7 +71,7 @@ const Container = ({ data }: any) => {
           {synopsis}
         </p>
       </div>
-      <div className="w-full bg-[#202020] md:col-span-1 col-span-4">
+      <div className="col-span-4 w-full bg-[#202020] md:col-span-1">
         {filData !== undefined &&
           Object.keys(filData).map((key: any) => {
             if (key === "aired") {
@@ -101,17 +100,17 @@ const Container = ({ data }: any) => {
               </div>
             );
           })}
-         
       </div>
-      <div className="bg-white md:col-span-1 col-span-4">
-        <iframe
-          className="w-full md:h-1/2"
-          title="youtube"
-          src={trailer.embed_url}
-        ></iframe>
-        
+      <div className="col-span-4 bg-[#202020] lg:col-span-1">
+        <div className="grid grid-rows-[400px_auto]">
+          <iframe
+            className="w-full h-full row-span-1"
+            title="youtube"
+            src={trailer?.embed_url}
+          ></iframe>
+          <AnimeCharacters data={data[1]["characters"]}/>
+        </div>
       </div>
-      {/* <AnimeCharacters data={data[1]["characters"]}/> */}
     </div>
   );
 };

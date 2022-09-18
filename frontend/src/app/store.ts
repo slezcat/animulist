@@ -1,9 +1,11 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import animeReducer from '../features/animeSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import animeReducer from "../features/animeSlice";
+import authReducer from "../features/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
     anime: animeReducer,
+    auth: authReducer,
   },
 });
 

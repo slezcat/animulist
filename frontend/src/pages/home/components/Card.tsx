@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { animeDetailsApi } from "../../../api/animeAPI";
+import { useAppDispatch } from "../../../app/hooks";
+import { getAnime, reset } from "../../../features/animeSlice";
 
 const AnimeCard = ({ data }: any) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
 
   const { title, year, score, season, images, genres,mal_id }: any = data;
 
@@ -84,7 +89,7 @@ const AnimeCard = ({ data }: any) => {
    
   }
   const showMoreDetails = (e:any,id:any)=>{
-   
+    dispatch(reset())
     navigate(`/search/${id}`)
   }
 
@@ -108,3 +113,7 @@ const AnimeCard = ({ data }: any) => {
 };
 
 export default AnimeCard;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

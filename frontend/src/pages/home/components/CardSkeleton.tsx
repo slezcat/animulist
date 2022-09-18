@@ -1,4 +1,4 @@
-import AnimeContainer from "./AnimeContainer";
+import AnimeContainer from "./Container";
 
 const CardSkeleton = () => {
   return (

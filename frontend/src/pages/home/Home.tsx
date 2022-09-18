@@ -1,18 +1,28 @@
-import { useEffect } from "react";
-import { allAnime } from "../../api/animeAPI";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { allAnimeApi } from "../../api/animeAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getAnime } from "../../features/animeSlice";
-import CardSkeleton from "../../pages/home/components/AnimeCardSkeleton";
-import AnimeSearch from "../../pages/home/components/AnimeSearch";
-import AnimeShowAll from "../../pages/home/components/AnimeShowAll";
+import { getAllAnime,  reset } from "../../features/animeSlice";
+import CardSkeleton from "./components/CardSkeleton";
+import AnimeSearch from "./components/Search";
+import AnimeShowAll from "./components/ShowAll";
 
 const Home = () => {
-  const { anime, status } = useAppSelector((store: any) => store.anime);
-  const dispatch = useAppDispatch();
+  
+  // const [data ,setData] = useState(undefined)
 
+  const { allAnime, status } = useAppSelector((store: any) => store.anime);
+  let dispatch = useAppDispatch();
+
+  
   useEffect(() => {
-    dispatch(getAnime(allAnime));
+    dispatch(getAllAnime(allAnimeApi));
   }, [dispatch]);
+
+  if (status === "loading"){
+    return <CardSkeleton />;
+  }
+
   return (
     <>
       <AnimeSearch />
@@ -20,10 +30,9 @@ const Home = () => {
         //show whether the anime is successfully fetched or not
         (() => {
           switch (status) {
-            case "loading":
-              return <CardSkeleton />;
+            
             case "idle":
-              return <AnimeShowAll data={anime} />;
+              return <AnimeShowAll data={allAnime} />;
             case "failed":
               return (
                 <h1 className="mt-12 h-[100vh] w-full text-center text-6xl text-white">
