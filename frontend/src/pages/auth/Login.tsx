@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { login,reset } from "../../features/auth/authSlice";
 
 type Props = {};
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -13,21 +17,21 @@ const Login = (props: Props) => {
 
   const { email, password } = formData;
 
-  // const { user, isLoading, isError, isSuccess, message } = useSelector(
-  //   (state) => state.auth
-  // )
+  const { user, isLoading, isError, isSuccess, message } = useAppSelector(
+    (state) => state.auth
+  );
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message)
-  //   }
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
 
-  //   if (isSuccess || user) {
-  //     navigate('/')
-  //   }
+    if (isSuccess || user) {
+      navigate("/");
+    }
 
-  //   dispatch(reset())
-  // }, [user, isError, isSuccess, message, navigate, dispatch])
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e: any) => {
     setFormData((prevState) => ({
@@ -36,16 +40,16 @@ const Login = (props: Props) => {
     }));
   };
 
-  const onSubmit = (e:any) => {
-    e.preventDefault()
+  const onSubmit = (e: any) => {
+    e.preventDefault();
 
     const userData = {
       email,
       password,
-    }
+    };
 
-    // dispatch(login(userData))
-  }
+    dispatch(login(userData));
+  };
 
   // if (isLoading) {
   //   return <Spinner />
@@ -57,7 +61,9 @@ const Login = (props: Props) => {
         onSubmit={onSubmit}
         className="my-auto flex flex-col gap-9 p-4 text-black"
       >
-        <h1 className="text-center text-4xl text-white font-semibold">Log in</h1>
+        <h1 className="text-center text-4xl font-semibold text-white">
+          Log in
+        </h1>
         <input
           type="email"
           name="email"
@@ -74,7 +80,10 @@ const Login = (props: Props) => {
           onChange={onChange}
           value={password}
         />
-        <button type="submit" className="bg-[#c62828] py-2 text-white font-semibold">
+        <button
+          type="submit"
+          className="bg-[#c62828] py-2 font-semibold text-white"
+        >
           Log in
         </button>
         <p className="text-center text-white">

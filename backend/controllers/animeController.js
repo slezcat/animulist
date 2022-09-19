@@ -15,13 +15,18 @@ const getAnimes = async (req, res) => {
 //@route POST /api/animes
 //@access Private
 const setAnime = asyncHandler(async (req, res) => {
-  if (!req.body.anime) {
+  const { title, animeId, status, image } = req.body;
+
+  if (!title || !animeId || !status ) {
     res.status(400);
-    throw new Error("Anime field not provided");
+    throw new Error("Anime field not provided!");
   }
 
   const anime = await Anime.create({
-    anime: req.body.anime,
+    title,
+    animeId,
+    status,
+    image,
     user: req.user.id,
   });
 
@@ -73,7 +78,8 @@ const deleteAnime = asyncHandler(async (req, res) => {
   if (!req.user) {
     res.status(401);
     throw new Error("User not found");
-  }``
+  }
+  ``;
 
   // Make sure the logged user matches the user's animelist
   if (anime.user.toString() !== req.user.id) {

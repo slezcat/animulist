@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { animeDetailsApi } from "../../../api/animeAPI";
 import { useAppDispatch } from "../../../app/hooks";
 import { getAnime, reset } from "../../../features/animeSlice";
+import { addAnime } from "../../../features/list/listSlice";
 
 const AnimeCard = ({ data }: any) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-
-  const { title, year, score, season, images, genres,mal_id }: any = data;
+  const { title, year, score, season, images, genres, mal_id }: any = data;
 
   /* onclick opens list button */
   const SelectButton = () => {
@@ -27,7 +27,20 @@ const AnimeCard = ({ data }: any) => {
         >
           {btnData.map((a) => {
             return (
-              <button className="z-50 w-full bg-slate-700 px-2 py-1 text-start hover:bg-slate-600">
+              <button
+                className="z-50 w-full bg-slate-700 px-2 py-1 text-start hover:bg-slate-600"
+                onClick={() =>
+                  // console.log(data)
+                  dispatch(
+                    addAnime({
+                      animeId: mal_id,
+                      title,
+                      status: a,
+                      image: images?.jpg.large_image_url,
+                    })
+                  )
+                }
+              >
                 {a}
               </button>
             );
@@ -40,9 +53,10 @@ const AnimeCard = ({ data }: any) => {
   const CardDetails = () => {
     return (
       <>
-        <div 
-        onClick={(e) => showMoreDetails(e,mal_id)}
-        className="absolute top-[20%] z-10 flex h-[32vh] w-full flex-col items-stretch justify-between overflow-hidden text-ellipsis rounded-lg bg-gradient-to-t from-[#000a12]  via-[#000a12] p-2 pt-3  opacity-0 transition delay-150 duration-300 ease-in-out group-hover:opacity-100 ">
+        <div
+          onClick={(e) => showMoreDetails(e, mal_id)}
+          className="absolute top-[20%] z-10 flex h-[32vh] w-full flex-col items-stretch justify-between overflow-hidden text-ellipsis rounded-lg bg-gradient-to-t from-[#000a12]  via-[#000a12] p-2 pt-3  opacity-0 transition delay-150 duration-300 ease-in-out group-hover:opacity-100 "
+        >
           <div>
             <h1 className="overflow-hidden text-ellipsis text-center text-lg font-bold line-clamp-1">
               {title}
@@ -74,7 +88,7 @@ const AnimeCard = ({ data }: any) => {
             </h3>
             <button
               className="rounded bg-slate-700 font-semibold transition duration-150 ease-in-out hover:bg-slate-600"
-              onClick={(e)=>handleOpen(e)}
+              onClick={(e) => handleOpen(e)}
             >
               + Add to list
             </button>
@@ -83,20 +97,18 @@ const AnimeCard = ({ data }: any) => {
       </>
     );
   };
-  const handleOpen = (e:any)=>{
-    e.stopPropagation()
-    setOpen(true)
-   
-  }
-  const showMoreDetails = (e:any,id:any)=>{
-    dispatch(reset())
-    navigate(`/search/${id}`)
-  }
+  const handleOpen = (e: any) => {
+    e.stopPropagation();
+    setOpen(true);
+  };
+  const showMoreDetails = (e: any, id: any) => {
+    dispatch(reset());
+    navigate(`/search/${id}`);
+  };
 
   return (
     <>
       <div
-        
         onMouseLeave={() => setOpen(false)}
         className="group relative flex h-60 w-40 cursor-pointer text-ellipsis rounded-lg text-white transition delay-150 duration-300 ease-in-out"
       >
@@ -113,7 +125,4 @@ const AnimeCard = ({ data }: any) => {
 };
 
 export default AnimeCard;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
 

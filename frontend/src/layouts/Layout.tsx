@@ -13,7 +13,7 @@ const Layout = (children: any) => {
       <div className="mx-[16vw]  mt-[6vh] px-1">
         <Outlet />
       </div>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <Footer />
     </div>
   );

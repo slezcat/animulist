@@ -7,11 +7,18 @@ const animeSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    animeId: {
+      type: String,
+      required: [true, "Anime id field required!"],
+    },
     title: {
       type: String,
-      required: [true, "please add anime field"],
+      required: [true, "Title field required!"],
     },
     status: {
+      type: String,
+    },
+    image: {
       type: String,
     },
   },

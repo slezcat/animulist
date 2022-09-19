@@ -29,8 +29,7 @@ const Home = () => {
       {
         //show whether the anime is successfully fetched or not
         (() => {
-          switch (status) {
-            
+          switch (status) {  
             case "idle":
               return <AnimeShowAll data={allAnime} />;
             case "failed":

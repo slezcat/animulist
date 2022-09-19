@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import animeReducer from "../features/animeSlice";
 import authReducer from "../features/auth/authSlice";
+import listReducer from '../features/list/listSlice'
 
 export const store = configureStore({
   reducer: {
     anime: animeReducer,
     auth: authReducer,
+    list: listReducer,
   },
 });
 
