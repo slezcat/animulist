@@ -11,31 +11,34 @@ const AnimeCard = ({ data }: any) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { title, year, score, season, images, genres, mal_id }: any = data;
+  const { title, year, score, season, images, genres, mal_id,episodes,status }: any = data;
 
   /* onclick opens list button */
   const SelectButton = () => {
-    const btnData = ["Completed", "Curently Watching"];
+    const btnData = ["Completed", "Watching"];
     return (
       <>
         <span
           onMouseLeave={() => setOpen(false)}
-          className={`absolute top-[105%]
-      left-[5%]  ${open ? "visible" : "invisible"}  opacity-${
+          className={`absolute top-[105%] left-[5%] ${
+            open ? "visible" : "invisible"
+          }  opacity-${
             open ? 100 : 0
-          }  z-50 w-max max-w-full translate-y-[calc(0%_-_10px)] rounded bg-[#333] p-0.5 text-start text-white shadow-lg  shadow-black transition duration-300  ease-in-out `}
+          } z-50 w-max max-w-full translate-y-[calc(0%_-_10px)] rounded bg-[#333] p-0.5 text-start text-white shadow-lg  shadow-black transition duration-300  ease-in-out `}
         >
           {btnData.map((a) => {
             return (
               <button
                 className="z-50 w-full bg-slate-700 px-2 py-1 text-start hover:bg-slate-600"
                 onClick={() =>
-                  // console.log(data)
                   dispatch(
                     addAnime({
+                      listStatus:a,
+                      progress: 0,
+                      episodes,
                       animeId: mal_id,
                       title,
-                      status: a,
+                      animeStatus:status,
                       image: images?.jpg.large_image_url,
                     })
                   )
@@ -49,6 +52,7 @@ const AnimeCard = ({ data }: any) => {
       </>
     );
   };
+  
   /* onhover details */
   const CardDetails = () => {
     return (
@@ -125,4 +129,3 @@ const AnimeCard = ({ data }: any) => {
 };
 
 export default AnimeCard;
-

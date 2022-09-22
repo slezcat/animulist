@@ -3,6 +3,8 @@ import listService from "./listService";
 
 const initialState = {
   animeList: [{}],
+  listStatus: "",
+  animeStatus: "",
   status: "",
   message: "",
 };
@@ -12,7 +14,6 @@ export const addAnime = createAsyncThunk(
   "list/addAnime",
   async (animeData: any, thunkAPI: any) => {
     try {
-      console.log(animeData)
       const token = thunkAPI.getState().auth.user.token;
 
       // Check for duplicate
@@ -20,11 +21,11 @@ export const addAnime = createAsyncThunk(
       const duplicate = currentList.find(
         (d: any) => d.title === animeData.title
       );
-      console.log("dup",duplicate)
       if (duplicate) {
-        await listService.editAnime(duplicate._id,animeData,token)
+        await listService.editAnime(duplicate._id, animeData, token);
         return;
       }
+
       return await listService.addAnime(animeData, token);
     } catch (error: any) {
       const message =
@@ -72,11 +73,12 @@ export const deleteAnime = createAsyncThunk(
 
 // Edit anime
 export const editAnime = createAsyncThunk(
-  "list/deleteAnimeList",
-  async (id, thunkAPI: any) => {
+  "list/editAnimeList",
+  async (animeData: any, thunkAPI: any) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      // return await listService.editAnime(id, token);
+      console.log(animeData);
+      return await listService.editAnime(animeData._id, animeData, token);
     } catch (error: any) {
       const message =
         (error.resonse && error.response.data && error.response.data.message) ||
@@ -124,9 +126,26 @@ export const listSlice = createSlice({
       })
       .addCase(deleteAnime.fulfilled, (state, action) => {
         state.status = "success";
-        state.animeList = state.animeList.filter((anime: any)=>anime._id !== action.payload.id)
+        state.animeList = state.animeList.filter(
+          (anime: any) => anime._id !== action.payload.id
+        );
       })
       .addCase(deleteAnime.rejected, (state, action: any) => {
+        state.status = "failed";
+        state.message = action.payload;
+      })
+      // Ediot anime from list
+      .addCase(editAnime.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(editAnime.fulfilled, (state, action) => {
+        state.status = "success";
+        const foundIndex = state.animeList.findIndex(
+          (x: any) => x._id === action.payload._id
+        );
+        state.animeList[foundIndex] = action.payload;
+      })
+      .addCase(editAnime.rejected, (state, action: any) => {
         state.status = "failed";
         state.message = action.payload;
       });

@@ -7,6 +7,15 @@ const animeSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    rating:{
+      type:Number
+    },
+    episodes: {
+      type: String,
+    },
+    progress: {
+      type: Number,
+    },
     animeId: {
       type: String,
       required: [true, "Anime id field required!"],
@@ -15,7 +24,11 @@ const animeSchema = mongoose.Schema(
       type: String,
       required: [true, "Title field required!"],
     },
-    status: {
+    listStatus: {
+      type: String,
+      required: [true, "List status field required!"],
+    },
+    animeStatus: {
       type: String,
     },
     image: {
