@@ -10,7 +10,7 @@ const Modal = () => {
   const dispatch = useAppDispatch();
 
   const { isModalOpen, content }: any = useAppSelector((state) => state.modal);
-  const {status} = useAppSelector((state)=>state.list)
+  const { status } = useAppSelector((state) => state.list);
 
   const { title, listStatus, progress, rating, _id } = content;
 
@@ -33,22 +33,18 @@ const Modal = () => {
   const onSubmit = (e: any) => {
     e.preventDefault();
 
-   
-
     const updatedData = {
-      listStatus: newListStatus,
-      progress: newProgress,
-      rating: newRating,
+      listStatus: newListStatus || listStatus,
+      progress: newProgress || progress,
+      rating: newRating || rating,
       _id: _id,
     };
 
     dispatch(editAnime(updatedData));
-    onClose()
-   
+    onClose();
   };
 
   const onClose = () => {
-    
     dispatch(closeModal());
   };
 
@@ -107,8 +103,6 @@ const Modal = () => {
                   type={"number"}
                   min={0}
                   max={10}
-                  
-                  
                   defaultValue={progress}
                 ></input>
                 <div className="ml-2 text-white">of 10 episodes</div>
@@ -127,7 +121,6 @@ const Modal = () => {
                   type={"number"}
                   min={0}
                   max={10}
-
                   defaultValue={rating}
                 ></input>
                 <div className="ml-2 text-white">of 10 rating</div>

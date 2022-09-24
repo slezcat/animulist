@@ -101,7 +101,7 @@ const Dashboard = (props: Props) => {
                       <td className="py-4 px-6 text-center">
                         {d.rating || 0}{" "}
                       </td>
-                      <td className="py-4 px-6">{`0 / ${
+                      <td className="py-4 px-6">{`${d.progress} / ${
                         d.episodes ?? "-"
                       }`}</td>
                       <td className="py-4 px-6">

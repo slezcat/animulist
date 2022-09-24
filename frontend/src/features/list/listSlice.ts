@@ -77,7 +77,6 @@ export const editAnime = createAsyncThunk(
   async (animeData: any, thunkAPI: any) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      console.log(animeData);
       return await listService.editAnime(animeData._id, animeData, token);
     } catch (error: any) {
       const message =
