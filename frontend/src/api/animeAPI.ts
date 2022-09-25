@@ -3,9 +3,9 @@ export const filteredAnimeApi = (params: any) => [
 ];
 
 export const allAnimeApi = [
-  { key: "https://api.jikan.moe/v4/seasons/now?limit=5", tag: "now" },
+  { key: "https://api.jikan.moe/v4/seasons/now?limit=10", tag: "now" },
   {
-    key: "https://api.jikan.moe/v4/seasons/upcoming?limit=5",
+    key: "https://api.jikan.moe/v4/seasons/upcoming?limit=10",
     tag: "upcoming",
   },
   {
