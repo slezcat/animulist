@@ -50,7 +50,7 @@ const Navbar = (props: Props) => {
           className={`${open ? "absolute m-auto left-[0%] top-[8%] z-50 transition duration-150 ease-in-out" :"hidden" } md:static md:m-0 w-full md:block md:w-auto `}
           id="navbar-default"
         >
-          <ul className="mt-4 flex flex-col   bg-[#202020] p-4 dark:border-gray-700 dark:bg-[#202020] md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium md:dark:bg-[#202020]">
+          <ul className="mt-4 flex flex-col   bg-[#202020] p-4 dark:border-gray-700 dark:bg-[#202020] md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-[#202020] md:text-sm md:font-medium md:dark:bg-[#202020]">
             <li
               onClick={() => navigate("/")}
               className="block cursor-pointer rounded  py-2 pr-4 pl-3 text-white dark:text-white md:bg-transparent md:p-0 md:text-red-500 hover:text-red-500"
