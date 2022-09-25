@@ -3,13 +3,13 @@ export const filteredAnimeApi = (params: any) => [
 ];
 
 export const allAnimeApi = [
-  { key: "https://api.jikan.moe/v4/seasons/now?limit=10", tag: "now" },
+  { key: "https://api.jikan.moe/v4/seasons/now?limit=6", tag: "now" },
   {
-    key: "https://api.jikan.moe/v4/seasons/upcoming?limit=10",
+    key: "https://api.jikan.moe/v4/seasons/upcoming?limit=6",
     tag: "upcoming",
   },
   {
-    key: "https://api.jikan.moe/v4/top/anime?limit=10",
+    key: "https://api.jikan.moe/v4/top/anime?limit=12",
     tag: "top 10"
   }
 ];
