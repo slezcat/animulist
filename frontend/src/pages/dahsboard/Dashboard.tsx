@@ -60,8 +60,8 @@ const Dashboard = (props: Props) => {
       <section className="grid min-h-[70.4vh] grid-cols-2 gap-2 text-white lg:grid-cols-[auto_200px]">
         <div className="col-span-2 lg:col-span-1 ">
           <div className="relative overflow-x-auto">
-            <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-              <thead className="bg-[#383838] text-xs uppercase text-gray-700  dark:text-gray-300">
+            <table className="w-full text-left text-sm ">
+              <thead className="bg-[#383838] text-xs uppercase   ">
                 <tr>
                   <th scope="col" className="py-3 px-6">
                     <span className="sr-only">Image</span>
@@ -83,13 +83,13 @@ const Dashboard = (props: Props) => {
               <tbody>
                 {status !== "loading" && anime.map((d: any) => {
                   return (
-                    <tr className="border-b bg-white dark:border-gray-700 dark:bg-[#202020]">
+                    <tr className="border-b border-gray-700 bg-[#202020]">
                       <td className="w-32 p-4">
                         <img src={d.image} alt="" />
                       </td>
                       <th
                         scope="row"
-                        className="whitespace-normal py-4 px-6 font-medium text-gray-900 dark:text-white"
+                        className="whitespace-normal py-4 px-6 font-medium  text-white"
                       >
                         {d.title}
                         <p className="font-light opacity-60">
@@ -122,37 +122,37 @@ const Dashboard = (props: Props) => {
         <div className="order-first col-span-2 row-span-1 self-start bg-[#202020] text-center lg:order-last lg:col-span-1">
           <ul className="flex flex-col gap-2 p-5 font-semibold">
             <li
-              className="cursor-pointer  bg-orange-400 bg-opacity-50 text-gray-400 hover:bg-orange-700 hover:bg-opacity-100 hover:text-white"
+              className="cursor-pointer  bg-orange-400 bg-opacity-50 text-white "
               onClick={() => queryAnime("All Anime")}
             >
               All Anime
             </li>
             <li
-              className="cursor-pointer  bg-gray-600 bg-opacity-50 text-gray-400 hover:bg-gray-700 hover:bg-opacity-100 hover:text-white"
+              className="cursor-pointer  bg-gray-600 bg-opacity-50 text-white "
               onClick={() => queryAnime("Watching")}
             >
               Watching
             </li>
             <li
-              className="cursor-pointer bg-blue-600 bg-opacity-30  text-gray-400 hover:bg-blue-700 hover:bg-opacity-100 hover:text-white "
+              className="cursor-pointer bg-blue-600 bg-opacity-30  text-white  "
               onClick={() => queryAnime("Plant to Watch")}
             >
               Plan to Watch
             </li>
             <li
-              className="cursor-pointer  bg-green-600 bg-opacity-50 text-gray-400 hover:bg-green-700 hover:bg-opacity-100 hover:text-white"
+              className="cursor-pointer  bg-green-600 bg-opacity-50 text-white "
               onClick={() => queryAnime("Completed")}
             >
               Completed
             </li>
             <li
-              className="cursor-pointer bg-yellow-600 bg-opacity-50 text-gray-400 hover:bg-yellow-700 hover:bg-opacity-100 hover:text-white"
+              className="cursor-pointer bg-yellow-600 bg-opacity-50 text-white "
               onClick={() => queryAnime("On Hold")}
             >
               On Hold
             </li>
             <li
-              className="cursor-pointer  bg-red-600 bg-opacity-50 text-gray-400 hover:bg-red-700 hover:bg-opacity-100 hover:text-white"
+              className="cursor-pointer  bg-red-600 bg-opacity-50 text-white "
               onClick={() => queryAnime("Dropped")}
             >
               Dropped
