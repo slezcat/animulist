@@ -4,8 +4,9 @@ import { animeDetailsApi } from "../../api/animeAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAnime, reset } from "../../features/animeSlice";
 import Container from "./components/Container";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Skeleton from "./components/Skeleton";
 
 type Props = {};
 
@@ -31,18 +32,17 @@ const Details = (props: Props) => {
         (() => {
           switch (status) {
             case "loading":
-              return <h1>loading</h1>;
+              return <Skeleton />;
             case "idle":
               return <Container data={anime} />;
-              case "failed":
-              toast.error(message)
-              return <Navigate to="/"/>
+            case "failed":
+              toast.error(message);
+              return <Navigate to="/" />;
             default:
               break;
           }
         })()
       }
-      
     </>
   );
 };

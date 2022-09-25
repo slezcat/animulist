@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import listService from "./listService";
 
-const initialState = {
+const initialState: any = {
   animeList: [{}],
   listStatus: "",
   animeStatus: "",
@@ -56,8 +56,8 @@ export const getAnimeList = createAsyncThunk(
 
 // Delete anime from list
 export const deleteAnime = createAsyncThunk(
-  "list/deleteAnimeList",
-  async (id, thunkAPI: any) => {
+  "list/deleteAnime",
+  async (id:any, thunkAPI: any) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await listService.deleteAnime(id, token);

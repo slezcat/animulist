@@ -8,6 +8,10 @@ export const allAnimeApi = [
     key: "https://api.jikan.moe/v4/seasons/upcoming?limit=5",
     tag: "upcoming",
   },
+  {
+    key: "https://api.jikan.moe/v4/top/anime?limit=10",
+    tag: "top 10"
+  }
 ];
 
 export const animeDetailsApi = (id: any) => [

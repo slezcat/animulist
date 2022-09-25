@@ -19,9 +19,8 @@ const Home = () => {
     dispatch(getAllAnime(allAnimeApi));
   }, [dispatch]);
 
-  if (status === "loading"){
-    return <CardSkeleton />;
-  }
+  console.log(status)
+  
 
   return (
     <>
@@ -29,7 +28,9 @@ const Home = () => {
       {
         //show whether the anime is successfully fetched or not
         (() => {
-          switch (status) {  
+          switch (status) { 
+            case "loading":
+              return <CardSkeleton />;
             case "idle":
               return <AnimeShowAll data={allAnime} />;
             case "failed":
@@ -41,7 +42,7 @@ const Home = () => {
             case "not found":
               return (
                 <h1 className="mt-12 h-[100vh] w-full text-center text-6xl text-white">
-                  No Result
+                  404 Not Found
                 </h1>
               );
             default:

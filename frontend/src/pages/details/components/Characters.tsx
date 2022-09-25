@@ -10,7 +10,7 @@ const AnimeCharacters = ({ data }: any) => {
       <div className="row-span-1">
         {data.slice(0, 4).map((d: any, i: number) => {
           return (
-            <div className="z-50 mt-5 flex flex-row justify-between bg-red-500">
+            <div className="z-50 mt-5 flex flex-row justify-between bg-[#202020] text-gray-200 ">
               <div className="flex flex-row">
                 <img
                   src={d.character.images?.jpg.image_url}

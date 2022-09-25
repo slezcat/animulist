@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { editAnime } from "../../../features/list/listSlice";
+import { deleteAnime, editAnime } from "../../../features/list/listSlice";
 import { closeModal } from "../../../features/modalSlice";
 import Select from "react-select";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -48,6 +49,11 @@ const Modal = () => {
     dispatch(closeModal());
   };
 
+  const handleDelete = (id:any)=>{
+    dispatch(deleteAnime(_id))
+    toast.success("Anime has been deleted from your list!")
+  }
+
   if (!isModalOpen) return null;
 
   return (
@@ -84,7 +90,7 @@ const Modal = () => {
                 defaultValue={listStatus}
               >
                 <option value="Watching">Watching</option>
-                <option value="Plant to Watch">Plant to Watch</option>
+                <option value="Plan to Watch">Plan to Watch</option>
                 <option value="Completed">Completed</option>
                 <option value="On Hold">On Hold</option>
                 <option value="Dropped">Dropped</option>
@@ -129,11 +135,13 @@ const Modal = () => {
           </div>
           <hr />
           <div className="mb-2 flex justify-between font-semibold text-white">
-            <button className="rounded bg-[#373737] px-2 hover:bg-[#FFBBB5]">
+            <button className="rounded bg-[#373737] px-4 py-1 hover:bg-red-500"
+            onClick={()=>handleDelete(_id)}
+            >
               Delete
             </button>
             <button
-              className="rounded bg-[#16a085] px-2"
+              className="rounded bg-[#16a085] px-4 py-1"
               type="submit"
               disabled={false}
             >

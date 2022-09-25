@@ -50,19 +50,15 @@ const Container = ({ data }: any) => {
 
   return (
     <div className="grid grid-flow-dense grid-cols-4 gap-4 text-white md:grid-cols-[200px_auto]">
-      <div className="col-span-4 flex flex-col items-center  justify-center sm:flex-row sm:justify-start md:col-span-1 md:flex-col">
+      <div className="col-span-4 flex flex-col items-center  justify-center sm:flex-row  md:col-span-1 md:flex-col ">
         <img
-          className="row-span-3 w-[200px] "
+          className="row-span-3 w-[200px]"
           src={images?.jpg.image_url}
           alt=""
         />
-        <div className="mt-4 flex  w-full flex-col items-center justify-between  gap-5 font-semibold md:px-0 px-4">
-          <button className="w-full bg-red-500 p-1">Add</button>
-          <button className="w-full bg-red-500 p-1">Add</button>
-          <button className="w-full bg-red-500 p-1">Add</button>
-        </div>
+       
       </div>
-      <div className="col-span-4 md:col-span-1">
+      <div className="col-span-4 md:col-span-3 lg:col-span-1">
         <h1 className="text-3xl">{title}</h1>
         <p className="whitespace-normal text-sm line-clamp-[12]">
           <span className="block text-lg font-semibold xl:hidden">
@@ -71,7 +67,7 @@ const Container = ({ data }: any) => {
           {synopsis}
         </p>
       </div>
-      <div className="col-span-4 w-full bg-[#202020] md:col-span-1">
+      <div className="col-span-4 w-full bg-[#202020] md:col-span-4 lg:col-span-1 ">
         {filData !== undefined &&
           Object.keys(filData).map((key: any) => {
             if (key === "aired") {
@@ -101,7 +97,7 @@ const Container = ({ data }: any) => {
             );
           })}
       </div>
-      <div className="col-span-4 bg-[#202020] lg:col-span-1">
+      <div className="col-span-4 bg-[#121212] lg:col-span-1">
         <div className="grid grid-rows-[400px_auto]">
           <iframe
             className="w-full h-full row-span-1"

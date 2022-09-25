@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiTwotoneStar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import Spinner from "../../components/Spinner";
 import { getAnimeList, reset } from "../../features/list/listSlice";
 import { openModal } from "../../features/modalSlice";
 import Modal from "./components/Modal";
@@ -17,7 +18,7 @@ const Dashboard = (props: Props) => {
     useAppSelector((state) => state.list);
 
   const [queriedAnime, setQueriedAnime] = useState<any>(undefined);
-  const [active,setActive] = useState(false)
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     console.log(animeList);
@@ -47,18 +48,17 @@ const Dashboard = (props: Props) => {
     setQueriedAnime(wanted);
   };
 
-  const modalHandler = (id:any)=>{
-    const foundAnime = animeList.find((o:any) => o._id === id )
-    dispatch(openModal(foundAnime))
-
-  }
+  const modalHandler = (id: any) => {
+    const foundAnime = animeList.find((o: any) => o._id === id);
+    dispatch(openModal(foundAnime));
+  };
 
   let anime = queriedAnime === undefined ? animeList : queriedAnime;
 
   return (
     <>
-      <section className="grid min-h-[70.4vh] grid-cols-[auto_200px] gap-2 text-white">
-        <div>
+      <section className="grid min-h-[70.4vh] grid-cols-2 gap-2 text-white lg:grid-cols-[auto_200px]">
+        <div className="col-span-2 lg:col-span-1 ">
           <div className="relative overflow-x-auto">
             <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
               <thead className="bg-[#383838] text-xs uppercase text-gray-700  dark:text-gray-300">
@@ -81,7 +81,7 @@ const Dashboard = (props: Props) => {
                 </tr>
               </thead>
               <tbody>
-                {anime.map((d: any) => {
+                {status !== "loading" && anime.map((d: any) => {
                   return (
                     <tr className="border-b bg-white dark:border-gray-700 dark:bg-[#202020]">
                       <td className="w-32 p-4">
@@ -107,7 +107,7 @@ const Dashboard = (props: Props) => {
                       <td className="py-4 px-6">
                         <button
                           className="rounded border-[1px] px-2 py-1"
-                          onClick={() =>  modalHandler(d._id)}
+                          onClick={() => modalHandler(d._id)}
                         >
                           Edit
                         </button>
@@ -119,40 +119,40 @@ const Dashboard = (props: Props) => {
             </table>
           </div>
         </div>
-        <div className="row-span-1 self-start bg-[#202020] text-center">
+        <div className="order-first col-span-2 row-span-1 self-start bg-[#202020] text-center lg:order-last lg:col-span-1">
           <ul className="flex flex-col gap-2 p-5 font-semibold">
             <li
-              className="cursor-pointer  bg-orange-400 bg-opacity-50 hover:bg-orange-700 text-gray-400 hover:text-white hover:bg-opacity-100"
+              className="cursor-pointer  bg-orange-400 bg-opacity-50 text-gray-400 hover:bg-orange-700 hover:bg-opacity-100 hover:text-white"
               onClick={() => queryAnime("All Anime")}
             >
               All Anime
             </li>
             <li
-              className="cursor-pointer  bg-gray-600 bg-opacity-50 hover:bg-gray-700 text-gray-400 hover:text-white hover:bg-opacity-100"
+              className="cursor-pointer  bg-gray-600 bg-opacity-50 text-gray-400 hover:bg-gray-700 hover:bg-opacity-100 hover:text-white"
               onClick={() => queryAnime("Watching")}
             >
               Watching
             </li>
             <li
-              className="cursor-pointer bg-blue-600 bg-opacity-30  hover:bg-blue-700 text-gray-400 hover:text-white hover:bg-opacity-100 "
+              className="cursor-pointer bg-blue-600 bg-opacity-30  text-gray-400 hover:bg-blue-700 hover:bg-opacity-100 hover:text-white "
               onClick={() => queryAnime("Plant to Watch")}
             >
               Plan to Watch
             </li>
             <li
-              className="cursor-pointer  bg-green-600 bg-opacity-50 hover:bg-green-700 text-gray-400 hover:text-white hover:bg-opacity-100"
+              className="cursor-pointer  bg-green-600 bg-opacity-50 text-gray-400 hover:bg-green-700 hover:bg-opacity-100 hover:text-white"
               onClick={() => queryAnime("Completed")}
             >
               Completed
             </li>
             <li
-              className="cursor-pointer bg-yellow-600 bg-opacity-50 hover:bg-yellow-700 text-gray-400 hover:text-white hover:bg-opacity-100"
+              className="cursor-pointer bg-yellow-600 bg-opacity-50 text-gray-400 hover:bg-yellow-700 hover:bg-opacity-100 hover:text-white"
               onClick={() => queryAnime("On Hold")}
             >
               On Hold
             </li>
             <li
-              className="cursor-pointer  bg-red-600 bg-opacity-50 hover:bg-red-700 text-gray-400 hover:text-white hover:bg-opacity-100"
+              className="cursor-pointer  bg-red-600 bg-opacity-50 text-gray-400 hover:bg-red-700 hover:bg-opacity-100 hover:text-white"
               onClick={() => queryAnime("Dropped")}
             >
               Dropped

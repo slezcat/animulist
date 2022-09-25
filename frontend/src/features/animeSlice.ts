@@ -76,10 +76,7 @@ export const animeSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getAnime.fulfilled, (state, action) => {
-        if (action.payload.length === 0) {
-          state.status = "not found";
-          return;
-        }
+        
         state.status = "idle";
         state.anime = action.payload;
       })
@@ -92,7 +89,12 @@ export const animeSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getAllAnime.fulfilled,(state,action) => {
-        console.log(action.payload)
+        console.log("len",action.payload.length)
+        if (action.payload.length === 1) {
+          
+          state.status = "not found";
+          return;
+        }
         state.allAnime = action.payload;
         state.status = "idle";
       })
